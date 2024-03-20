@@ -1,13 +1,14 @@
-# Import the dependencies.
-from flask import Flask, jsonify, render_template
-import pandas as pd
-from sqlHelper import SQLHelper
+from flask import Flask, render_template, redirect, request, jsonify
+from modelHelper import ModelHelper
+import json
 
-#################################################
-# Flask Setup
-#################################################
+# Create an instance of Flask
 app = Flask(__name__)
-sqlHelper = SQLHelper() # initialize the database helper
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
+modelHelper = ModelHelper()
+
+
 
 @app.route("/")
 def home_page():
@@ -17,29 +18,54 @@ def home_page():
 def about_us():
     return render_template("about_us.html")
 
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
+@app.route("/ml_live_form")
+def ml_live_form():
+    return render_template("ml_live_form.html")
 
-@app.route("/api/v1.0/<region>")
-def get_data(region):
-    print(region)
+@app.route("/report")
+def report():
+    return render_template("report.html")
 
-    # execute the queries
-    data_map = sqlHelper.getMapData(region)
-    data_bar = sqlHelper.getBarData(region)
-    data_sunburst = sqlHelper.getSunburstData(region)
-    data_box = sqlHelper.getBoxData(region)
+@app.route("/tableau")
+def tableau():
+    return render_template("tableau.html")
 
-    data = {"map_data": data_map,
-            "bar_data": data_bar,
-            "sunburst_data": data_sunburst,
-            "box_data": data_box}
+@app.route("/works_cited")
+def works_cited():
+    return render_template("works_cited.html")
 
-    return jsonify(data)
+@app.route("/makePredictions", methods=["POST"])
+def make_predictions():
+    content = request.json["data"]
+    print(content)
+    
+    # parse
+    sex_flag = int(content["sex_flag"])
+    age = float(content["age"])
+    fare = float(content["fare"])
+    familySize = int(content["familySize"])
+    p_class = int(content["p_class"])
+    embarked = content["embarked"]
 
-#################################################
-# Execute the App
-#################################################
+    preds = modelHelper.makePredictions(sex_flag, age, fare, familySize, p_class, embarked)
+    return(jsonify({"ok": True, "prediction": str(preds)}))
+
+
+
+#############################################################
+
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    return r
+
+#main
 if __name__ == "__main__":
     app.run(debug=True)
