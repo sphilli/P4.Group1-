@@ -42,15 +42,63 @@
         </div>
       </nav>
       <div class="text-center">
+        <br>
+        <p style="font-size:20px">Enter your demographics to check whether you would be considered high or low risk.</p>
+        <hr>
+        <img src="static/images/credit-card-check.png" alt="Credit Card with a checkmark" width="200">
         <div id="filters" style="font-size:18px;">
-            <label for="marital">Select your marital status:</label>
-            <select id="marital">
+            <label for="Family_status">Select your marital status:</label>
+            <select id="Family_status">
               <option value="Single" selected>Single</option>
+              <option value="Civil Marriage">Civil Marriage</option>
               <option value="Married">Married</option>
-              <option value="Divorced">Divorced</option>
+              <option value="Separated">Separated</option>
               <option value="Widowed">Widowed</option>
             </select>
-            </div>
-           <p style="font-size:18px;">Enter your demographics to check whether you would be considered high or low risk.</p>
+        </div>
+        <div id="filters" style="font-size:18px;">
+            <label for="gender">Select your gender:</label>
+            <select id="gender">
+              <option value="female" selected>Female</option>
+              <option value="male">Male</option>
+            </select>
+        </div>
+        <div id="filters" style="font-size:18px;">
+          <label for="Education_type">Select your highest level of education:</label>
+          <select id="Education_type">
+            <option value="Academic Degree" selected>Academic Degree</option>
+            <option value="Higher Education">Higher Education</option>
+            <option value="Incomplete Higher Education">Incomplete Higher Education</option>
+            <option value="Lower Secondary">Lower Secondary</option>
+            <option value="Secondary">Secondary</option>
+          </select>
       </div>
+      <div id="filters" style="font-size:18px;">
+        <label for="Housing_type">Select your housing type:</label>
+        <select id="Housing_type">
+          <option value="Co-op Apartment" selected>Co-op Apartment</option>
+          <option value="House">House</option>
+          <option value="Municipal apartment">Municipal apartment</option>
+          <option value="Office apartment">Office apartment</option>
+          <option value="Rented apartment">Rented apartment</option>
+          <option value="Living with parents">Living with parents</option>
+        </select>
+      </div>      
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-primary" id="filter">Make Prediction!</button>
+        </div>
+    </div>
+</div>
+<hr style="color:lightgray; border-width: 3px;">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+    <h1 id="output"></h1>
+</div>
+</div>
+</div>
+
       </body>

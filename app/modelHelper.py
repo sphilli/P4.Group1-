@@ -8,43 +8,88 @@ class ModelHelper():
     def __init__(self):
         pass
 
-    def makePredictions(self, sex_flag, age, fare, familySize, pclass, embarked):
-        pclass_1 = 0
-        pclass_2 = 0
-        pclass_3 = 0
+    def makePredictions(self, Family_status, gender, Education_type, Housing_type):
+        gender = 0
 
-        embarked_c = 0
-        embarked_q = 0
-        embarked_s = 0
-
-        # parse pclass
-        if (pclass == 1):
-            pclass_1 = 1
-        elif (pclass == 2):
-            pclass_2 = 1
-        elif (pclass == 3):
-            pclass_3 = 1
+        family_status_civil_marriage = 0
+        family_status_married = 0
+        family_status_separated	 = 0
+        family_status_single = 0
+        family_status_widow = 0
+        
+        education_academic_degree = 0
+        education_higher_education = 0
+        education_incomplete_higher = 0
+        education_lower_secondary = 0
+        education_secondary = 0
+        
+        housing_type_co_op_apartment = 0
+        housing_type_house_apartment = 0
+        housing_type_municipal_apartment = 0
+        housing_type_office_apartment = 0
+        housing_type_rented_apartment = 0
+        housing_type_with_parents = 0
+        
+        # parse gender
+        if (gender == "female"):
+            gender = 0
+        elif (gender == "male"):
+            gender = 1
         else:
             pass
 
-        # parse embarked
-        if (embarked == "C"):
-            embarked_c = 1
-        elif (embarked == "Q"):
-            embarked_q = 1
-        elif (embarked == "S"):
-            embarked_s = 1
+        # parse family status
+        if (Family_status == "Civil Marriage"):
+            family_status_civil_marriage = 1
+        elif (Family_status == "Married"):
+            family_status_married = 1
+        elif (Family_status == "Separated"):
+            family_status_separated = 1
+        elif (Family_status == "Single"):
+            family_status_single = 1
+        elif (Family_status == "Widow"):
+            family_status_widow = 1
+        else:
+            pass
+        
+        # parse education
+        if (Education_type == "Academic Degree"):
+            education_academic_degree = 1
+        elif (Education_type == "Higher Education"):
+            education_higher_education = 1
+        elif (Education_type == "Incomplete Higher Education"):
+            education_incomplete_higher = 1
+        elif (Education_type == "Lower Secondary"):
+            education_lower_secondary = 1
+        elif (Education_type == "Secondary"):
+            education_secondary = 1
+        else:
+            pass
+        
+        # parse housing type
+        if (Housing_type == "Co-op Apartment"):
+            housing_type_co_op_apartment = 1
+        elif (Housing_type == "House"):
+            housing_type_house_apartment = 1
+        elif (Housing_type == "Municipal apartment"):
+            housing_type_municipal_apartment = 1
+        elif (Housing_type == "Office apartment"):
+            housing_type_office_apartment = 1
+        elif (Housing_type == "Rented apartment"):
+            housing_type_rented_apartment = 0
+        elif (Housing_type == "Living with parents"):
+            housing_type_with_parents = 0
         else:
             pass
 
-        input_pred = [[sex_flag, age, fare, familySize, pclass_1, pclass_2, pclass_3, embarked_c, embarked_q, embarked_s]]
+        input_pred = [[gender, housing_type_co_op_apartment, housing_type_house_apartment, housing_type_municipal_apartment, housing_type_office_apartment, housing_type_rented_apartment, housing_type_with_parents, family_status_civil_marriage, family_status_married, family_status_separated, family_status_single, family_status_widow, education_academic_degree, education_higher_education, education_incomplete_higher, education_lower_secondary, education_secondary]]
 
 
         filename = 'finalized_model.sav'
-        ada_load = pickle.load(open(filename, 'rb'))
+        lr_load = pickle.load(open(filename, 'rb'))
 
         X = np.array(input_pred)
-        preds = ada_load.predict_proba(X)
-        preds_singular = ada_load.predict(X)
+        preds = lr_load.predict_proba(X)
+        preds_singular = lr_load.predict(X)
 
         return preds_singular[0]
