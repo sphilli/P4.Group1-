@@ -59,9 +59,9 @@ function makePredictions() {
           let pred = returnedData["prediction"]
 
           if (pred["loan_pred"] === "high_risk") {
-              $("#output").text(`Sorry, you have not been approved at this time with a probability of ${pred["prob_high_risk"]}.`);
+              $("#output").text(`Sorry, you have not been approved at this time with a probability of ${(pred["prob_high_risk"]*100).toFixed(2)}%.`);
           } else {
-              $("#output").text(`Congratulations! You have been conditionally approved with a probability of ${pred["prob_low_risk"]}.`);
+              $("#output").text(`Congratulations! You have been conditionally approved with a probability of ${(pred["prob_low_risk"]*100).toFixed(2)}%.`);
           }
 
       },
