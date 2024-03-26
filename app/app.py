@@ -60,7 +60,7 @@ def make_predictions():
     preds = modelHelper.makePredictions(gender, own_car, own_property, unemployed, num_children,
                        num_family, account_length, total_income, age, years_employed, income_type, 
                         education_type, family_status, housing_type, occupation_type)
-    return(jsonify({"ok": True, "prediction": str(preds)}))
+    return(jsonify({"ok": True, "prediction": preds}))
 
 
 

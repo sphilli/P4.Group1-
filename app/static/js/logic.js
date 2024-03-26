@@ -56,11 +56,12 @@ function makePredictions() {
       success: function(returnedData) {
           // print it
           console.log(returnedData);
+          let pred = returnedData["prediction"]
 
-          if (returnedData["prediction"] === "1") {
-              $("#output").text("Sorry, you have not been approved at this time.");
+          if (pred["loan_pred"] === "high_risk") {
+              $("#output").text(`Sorry, you have not been approved at this time with a probability of ${pred["prob_high_risk"]}.`);
           } else {
-              $("#output").text("Congratulations! You have been conditionally approved.");
+              $("#output").text(`Congratulations! You have been conditionally approved with a probability of ${pred["prob_low_risk"]}.`);
           }
 
       },
