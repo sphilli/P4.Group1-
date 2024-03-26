@@ -38,16 +38,28 @@ def works_cited():
 def make_predictions():
     content = request.json["data"]
     print(content)
-    
-    # parse
-    sex_flag = int(content["sex_flag"])
-    age = float(content["age"])
-    fare = float(content["fare"])
-    familySize = int(content["familySize"])
-    p_class = int(content["p_class"])
-    embarked = content["embarked"]
 
-    preds = modelHelper.makePredictions(sex_flag, age, fare, familySize, p_class, embarked)
+    # parse
+    gender = int(content["gender"])
+    own_car = int(content["own_car"])
+    own_property = int(content["own_property"])
+    unemployed = int(content["unemployed"])
+    family_status = content["family_status"]
+    education_type = content["education_type"]
+    housing_type = content["housing_type"]
+    income_type = content["income_type"]
+    occupation_type = content["occupation_type"]
+    age = float(content["age"])
+    num_children = int(content["num_children"])
+    num_family = int(content["num_family"])
+    account_length = int(content["account_length"])
+    total_income = float(content["total_income"])
+    years_employed = float(content["years_employed"])
+
+
+    preds = modelHelper.makePredictions(gender, own_car, own_property, unemployed, num_children,
+                       num_family, account_length, total_income, age, years_employed, income_type, 
+                        education_type, family_status, housing_type, occupation_type)
     return(jsonify({"ok": True, "prediction": str(preds)}))
 
 
